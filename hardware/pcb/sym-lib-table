@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "ch552")(type "KiCad")(uri "${KIPRJMOD}/lib/ch552g.kicad_sym")(options "")(descr ""))
+  (lib (name "kiswitch")(type "KiCad")(uri "${KIPRJMOD}/lib/kiswitch/kiswitch.kicad_sym")(options "")(descr ""))
+)

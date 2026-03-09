@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "kiswitch")(type "KiCad")(uri "${KIPRJMOD}/lib/kiswitch")(options "")(descr ""))
+  (lib (name "local")(type "KiCad")(uri "${KIPRJMOD}/lib")(options "")(descr ""))
+)
