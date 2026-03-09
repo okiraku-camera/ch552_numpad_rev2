@@ -1,0 +1,26 @@
+# License Notice
+
+This project contains hardware and software components.
+
+---
+
+## Hardware License (CERN-OHL-P v2)
+Hardware design files in `hardware/` are licensed under the  
+**CERN Open Hardware Licence Version 2 – Permissive**.  
+Full text: https://ohwr.org/cern_ohl_p_v2.txt
+
+---
+
+## Software License (MIT)
+Software components (firmware, scripts, tools) are licensed under the **MIT License**.  
+Full text: https://opensource.org/licenses/MIT
+
+---
+
+## Third-Party Licenses
+
+This project uses MIT-licensed KiCad footprints from the **kiswitch** library:  
+https://github.com/kiswitch/kiswitch
+
+These components are licensed under the MIT License:  
+https://opensource.org/licenses/MIT
