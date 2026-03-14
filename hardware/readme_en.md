@@ -1,13 +1,10 @@
-# CH552 Numeric Keypad
+# About hardware
 
 A simple USB numeric keypad based on the CH552G microcontroller.
 
 The project includes KiCad design files for the PCB, FR-4 plates, and acrylic support parts.
 
 Gerber, DXF, and PDF files used for manufacturing and acrylic cutting are also provided.
-
-
-![52_numpad_rev2](assets/chh552_numpad_rev2.jpg)
 
 The hardware was designed using KiCAD 6.0. By opening the KiCAD project files in each directory, you can view the circuit design, PCB layout, and plate designs.
 
