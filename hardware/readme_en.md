@@ -29,11 +29,14 @@ Since this keyboard uses Cherry‑style plate‑mount stabilizers, the correspon
 The switch cutouts are simple rectangles in this design, but adding small fillets (around 0.5 mm radius) is safer to prevent cracking.
 The plate thickness is 1.5 mm, and the screw hole diameter is 2.4 mm.
 
+![top_plate F side](assets/top_plate.jpg)
 
 ### bottom_plate
 This is the bottom plate of the keyboard. The PCB thickness is specified as 1.6 mm.
 
 The B-side copper layer uses a checkerboard pattern created with copper zones and keep-out areas.
+
+![bottom_plate B side](assets/bottom_plate.jpg)
 
 The screw hole diameter is 3 mm.
 
@@ -45,16 +48,24 @@ Because the footprints for the plate‑mount stabilizer (MX_Plate_Mount_Stabiliz
 ### Acrylic Supports
 These acrylic support parts ensure proper clearance between the three plates (PCB, top, bottom). The acrylic thickness and material (clear, frosted, colored, etc.) are specified when ordering from acrylic‑cutting services such as Elecrow.
 
-![top_support](assets/ch552_numpad_rev2_support.png)
+![acrylic support](assets/ch552_numpad_rev2_support.png)
 
 ### top_support
 This is a 3 mm thick acrylic plate placed between the PCB and the top plate.
 A 1 mm‑thick urethane “gap tape” is applied to the top side (toward the top plate) to secure the nearly 4 mm clearance required for switches using hot‑swap sockets.
 M2 screws pass through the top_support, and the screw hole diameter is set to 2.4 mm to account for machining tolerances.
 
+The USB receptacle used on this PCB has 2.0 mm mechanical posts, which protrude slightly from the front (F) side of the board. To prevent interference with the acrylic top plate, two small clearance holes are provided at the corresponding locations on the top_support piece.
+
+![top_support](assets/top_support.jpg)
+
+The laser‑cut acrylic plates are delivered with protective paper applied, as shown in the photo.
+
 ### bottom_support
 This is a 5 mm thick acrylic support placed between the PCB and the bottom plate. Approximately 5 mm of clearance is required between the USB connector and switch sockets on the PCB’s B‑side and the bottom plate.
 The screw hole diameter is 3.0 mm, matching the outer diameter of M2 brass spacers.
+
+![bottom_support](assets/bottom_support.jpg)
 
 ## Assembly
 As shown in the diagram below, the plates and supports are fixed together using screws and spacers.
@@ -66,4 +77,13 @@ Insert spacers with 4 mm M2 screws pre‑threaded into them from the bottom si
 Because the screw holes in the bottom_plate and bottom_support are 3.0 mm, inserting the spacers during assembly may feel slightly tight. However, once inserted, the spacers will not fall out even if the assembly is lifted, making the process easier.
 
 
+## Firmware Update Procedure
+
+When the P3.6 pin of the CH552 is pulled up to +3.3V at power‑on, the chip enters bootloader mode and remains in that state for several seconds. During this window, you can upload new firmware over USB.
+
+On this PCB, two through‑hole pads labeled BOOT and 3.3V are placed at the top edge to make it easy to pull up P3.6 (UDP). By shorting these two pads with tweezers and then connecting the USB cable, the CH552 will start in bootloader mode. It is safe to keep the pads shorted for the entire duration of the firmware transfer.
+
+![BOOTおよびリセット用のパッド](assets/boot_reset_pad.jpg)
+
+Note that the chip does not automatically restart after the upload completes. To start the newly written firmware, you need to perform a hardware reset by shorting the RST and +5V pads located next to the BOOT pads. This is also done by briefly touching the two pads with tweezers.
 
