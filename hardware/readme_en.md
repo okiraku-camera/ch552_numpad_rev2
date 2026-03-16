@@ -76,6 +76,14 @@ Insert spacers with 4 mm M2 screws pre‑threaded into them from the bottom si
 
 Because the screw holes in the bottom_plate and bottom_support are 3.0 mm, inserting the spacers during assembly may feel slightly tight. However, once inserted, the spacers will not fall out even if the assembly is lifted, making the process easier.
 
+![spacers and screws](assets/screws.jpg)
+
+brass spacers and scrwes.
+
+![bottom_support and sockets](assets/bottom_support_sockets.jpg)
+
+The cutout in bottom_support is designed to prevent interference with the switch socket.
+
 
 ## Firmware Update Procedure
 
@@ -83,7 +91,7 @@ When the P3.6 pin of the CH552 is pulled up to +3.3V at power‑on, the chip ent
 
 On this PCB, two through‑hole pads labeled BOOT and 3.3V are placed at the top edge to make it easy to pull up P3.6 (UDP). By shorting these two pads with tweezers and then connecting the USB cable, the CH552 will start in bootloader mode. It is safe to keep the pads shorted for the entire duration of the firmware transfer.
 
-![BOOTおよびリセット用のパッド](assets/boot_reset_pad.jpg)
+![Boot and Reset pads](assets/boot_reset_pad.jpg)
 
 Note that the chip does not automatically restart after the upload completes. To start the newly written firmware, you need to perform a hardware reset by shorting the RST and +5V pads located next to the BOOT pads. This is also done by briefly touching the two pads with tweezers.
 
