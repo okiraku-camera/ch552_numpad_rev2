@@ -85,6 +85,11 @@ brass spacers and scrwes.
 The cutout in bottom_support is designed to prevent interference with the switch socket.
 
 
+[![Attach stabilizer](https://img.youtube.com/vi/y5GvuZy3Fyg/0.jpg)](https://www.youtube.com/watch?v=y5GvuZy3Fyg)
+
+*Video : Attach stabilizer to switch plate*
+
+
 ## Firmware Update Procedure
 
 When the P3.6 pin of the CH552 is pulled up to +3.3V at power‑on, the chip enters bootloader mode and remains in that state for several seconds. During this window, you can upload new firmware over USB.
