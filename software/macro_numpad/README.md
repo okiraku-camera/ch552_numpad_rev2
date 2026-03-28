@@ -1,5 +1,7 @@
 # macro_numpad（マクロパッド）
 
+English version is here: [README_en.md](README_en.md)
+
 ## 概要
 
 macro_numpadは、CH552Gマイコンを搭載した**プログラマブルなテンキーパッド/マクロキーパッド**です。デフォルトではスタンダードなテンキーとして機能しますが、WebUIを使用してキーマップやマクロを自由に設定できます。

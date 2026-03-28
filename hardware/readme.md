@@ -1,5 +1,7 @@
 # ハードウェアについて
 
+English version is here: [README_en.md](README_en.md)
+
 CH552Gマイクロコントローラを使ったシンプルなUSBテンキーです。
 
 このプロジェクトには、PCB、FR-4を使ったプレート、アクリル板を使ったポート部品の、KiCad設計ファイルが含まれています。

@@ -1,5 +1,7 @@
 # macro_numpad WebUI 使い方ガイド
 
+English version is here: [README_en.md](README_en.md)
+
 ## 概要
 
 このドキュメントでは、`macro_numpad.html` を使ってキーボード本体のキーマップ・マクロを設定する手順を説明します。

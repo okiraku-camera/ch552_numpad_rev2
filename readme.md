@@ -1,36 +1,37 @@
 # CH552 Numeric Keypad revision 2
 
-This repository contains hardware design information for building a simple USB numeric keypad using the CH552G microcontroller, along with software information for keyboard firmware that runs on this hardware.
+English version is here: [README_en.md](README_en.md)
+
+このリポジトリは、CH552Gマイクロコントローラを使ったシンプルなUSBテンキーを作成するためのハードウェアの作成情報と、このハードウェアを動作させるためのキーボード用ソフトウェアについての情報を含んでいます。
 
 ![ch5552_numpad_rev2](hardware/assets/chh552_numpad_rev2.jpg)
 
-## Hardware
-The hardware directory includes a complete set of files for **KiCad 6.0**, Gerber files used for manufacturing, and DXF/PDF files for acrylic cutting.
+## ハードウェア
+**KiCad 6.0**用のファイル一式、製造に用いたガーバーファイル、アクリルカットのための DXF および PDFファイルが、hardware ディレクトリ内に入っています。
 
-## Software
-This section contains software written for the hardware above, including a simple USB HID keypad and macro keypad firmware. It is provided as Arduino sketches using **ch55xDuino** (v0.25) as the core package.
+## ソフトウェア
+上記のハードウェア用に記述した、シンプルなUSB HIDキーボードやマクロキーボードといったソフトウェアです。コアパッケージとして **ch55xDuino** (v0.25) を用いた Arduino 用のスケッチです。
 
-### Simple Numeric Keypad
-Stored in the **simple_numPad** directory. The sketch is largely the same as the previously published [ch552_numkeyPad](https://github.com/okiraku-camera/ch552_numkeyPad).    
+### シンプルなテンキー
+**simple_numPad** ディレクトリに格納しています。以前に公開した [ch552_numkeyPad](https://github.com/okiraku-camera/ch552_numkeyPad) の sketch とおおむね同じ内容です。    
 
-### Macro Keypad Implementation Using WebHID (macro_numpad)
-Among the keypad's 17 keys, this allows you to assign any Usage ID via **WebHID** to 16 keys excluding NumLock.
+### webhid を使ったマクロキーボードの実装 (macro_numpad)
+テンキーの17キーのうち、NumLock を除いた16キーに、**WebHID** を使って好きな UsageID を割り当てられるようにしています。
 
-You can also configure special codes such as media controls and mouse operations. In addition, multiple Usage IDs can be registered to a single key, allowing one action to trigger multiple key inputs.
+メディア操作やマウス操作など、ちょっと特別なコードも設定できます。また、1つのキーに複数の UsageID をまとめて登録できるので、ワンアクションで複数のキー入力をまとめて実行することもできます。
 
-This was written partly as a WebHID sample implementation.
-
-
-### Web App for Macro Keypad Configuration (HTML and JavaScript)
-This web application communicates with the macro keypad over WebHID and reads/writes codes between the device and the virtual keyboard shown in the browser.
+WebHIDのサンプル的な意味合いで記述しました。
 
 
-## License
+### マクロキーボードの設定用webアプリケーション (htmlおよびjavascript)
+マクロキーボードとWebHIDで通信し、ブラウザに表示する仮想キーボードとデバイス間とでコードの書込みや読出しを行うためのWebアプリケーションです。
+
+
+## ライセンス
 This project contains hardware and software components.
 
 Copyright (c) Takeshi Higasa, okiraku-camera.tokyo
 
 See [LICENSE](./LICENSE)
-
 
 
