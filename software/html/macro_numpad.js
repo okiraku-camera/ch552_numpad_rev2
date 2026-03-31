@@ -143,6 +143,7 @@ const shiftedCharLabelMap = {
 
 // --- テンキー専用キー定義 ---
 const keypadKeyDefs = [
+  { label: "NumLock", usage: 0x53 },
   { label: "KP /", usage: 0x54 }, { label: "KP *", usage: 0x55 }, { label: "KP -", usage: 0x56 },
   { label: "KP 7", usage: 0x5F }, { label: "KP 8", usage: 0x60 }, { label: "KP 9", usage: 0x61 },  { label: "KP +", usage: 0x57 },
   { label: "KP 4", usage: 0x5C }, { label: "KP 5", usage: 0x5D }, { label: "KP 6", usage: 0x5E },
@@ -166,91 +167,38 @@ const PHYSICAL_LAYOUT = [
 ];
 
 // --- 読み出し時のラベル変換用マップ ---
-const MASTER_USAGE_MAP = { 0x53: "Num", 0xBC: "Fn", 0x9C: "Clear" };
-[...charKeyDefs, ...editKeyDefs, ...japaneseExtKeyDefs, ...specialKeyDefs, ...mouseSimKeyDefs, ...functionKeyDefs, ...macroKeyDefs].forEach(d => MASTER_USAGE_MAP[d.usage] = d.label);
+const MASTER_USAGE_MAP = { 0xBC: "Fn", 0x9C: "Clear" };
+[...charKeyDefs, ...editKeyDefs, ...japaneseExtKeyDefs, ...specialKeyDefs, ...mouseSimKeyDefs, ...functionKeyDefs, ...macroKeyDefs, ...keypadKeyDefs].forEach(d => MASTER_USAGE_MAP[d.usage] = d.label);
 
 const toHex2 = (value) => `0x${value.toString(16).toUpperCase().padStart(2, "0")}`;
 
 const MACRO_USAGE_LABELS = (() => {
-  const map = {};
-
-  for (let i = 0; i < 26; i++) {
-    map[0x04 + i] = String.fromCharCode(97 + i);
-  }
-
-  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].forEach((label, idx) => {
-    map[0x1E + idx] = label;
-  });
+  // MASTER_USAGE_MAP をベースに、マクロエディタ用に追加・上書きする
+  const map = Object.assign({}, MASTER_USAGE_MAP);
 
   Object.assign(map, {
-    0x28: "Enter",
-    0x29: "Esc",
+    // charKeyDefs は JP レイアウト前提のため HID 標準ラベルで上書き
     0x2A: "BackSP",
-    0x2B: "Tab",
     0x2C: "Space",
-    0x2D: "-",
     0x2E: "=",
     0x2F: "[",
     0x30: "]",
     0x31: "\\",
     0x32: "0x32",
-    0x33: ";",
     0x34: "'",
-    0x35: "`",
-    0x36: ",",
-    0x37: ".",
-    0x38: "/",
-    0x39: "Caps",
-    0x3A: "F1",
-    0x3B: "F2",
-    0x3C: "F3",
-    0x3D: "F4",
-    0x3E: "F5",
-    0x3F: "F6",
-    0x40: "F7",
-    0x41: "F8",
-    0x42: "F9",
-    0x43: "F10",
-    0x44: "F11",
-    0x45: "F12",
     0x46: "PrtSc",
-    0x47: "ScrLock",
-    0x48: "Pause",
-    0x49: "Ins",
-    0x4A: "Home",
-    0x4B: "PgUp",
-    0x4C: "Del",
-    0x4D: "End",
-    0x4E: "PgDn",
-    0x4F: "→",
-    0x50: "←",
-    0x51: "↓",
-    0x52: "↑",
-    0x53: "NumLock",
-    0x54: "KP/",
-    0x55: "KP*",
-    0x56: "KP-",
-    0x57: "KP+",
-    0x58: "KP Enter",
-    0x59: "KP1",
-    0x5A: "KP2",
-    0x5B: "KP3",
-    0x5C: "KP4",
-    0x5D: "KP5",
-    0x5E: "KP6",
-    0x5F: "KP7",
-    0x60: "KP8",
-    0x61: "KP9",
-    0x62: "KP0",
-    0x63: "KP.",
     0x64: "NonUS\\",
-    0x65: "App",
+    // keypadKeyDefs にない追加テンキー
     0x67: "KP =",
     0x85: "KP ,",
+    // その他
+    0x65: "App",
     0x9A: "SysReq",
+    // ディレイコード
     0xDA: "100ms",
     0xDB: "500ms",
     0xDC: "1sec",
+    // 修飾キー
     0xE0: "L-Ctrl",
     0xE1: "L-Shift",
     0xE2: "L-Alt",
@@ -258,24 +206,19 @@ const MACRO_USAGE_LABELS = (() => {
     0xE4: "R-Ctrl",
     0xE5: "R-Shift",
     0xE6: "R-Alt",
-    0xE7: "R-GUI"
+    0xE7: "R-GUI",
+    // japaneseExtKeyDefs より短いラベルに上書き
+    0x90: "LANG1",
+    0x91: "LANG2"
   });
 
-  for (let i = 0; i < 12; i++) {
-    map[0x68 + i] = `F${13 + i}`;
-  }
+  // Intl / Lang キー（MASTER_USAGE_MAP にないものを補完）
   for (let usage = 0x87; usage <= 0x8F; usage++) {
-    map[usage] = `Intl${usage - 0x86}`;
+    if (!(usage in map)) map[usage] = `Intl${usage - 0x86}`;
   }
   for (let usage = 0x90; usage <= 0x98; usage++) {
-    map[usage] = `Lang${usage - 0x8F}`;
+    if (!(usage in map)) map[usage] = `Lang${usage - 0x8F}`;
   }
-  // 日本語キー上書き
-  map[0x88] = "ひらがな";
-  map[0x8A] = "変換";
-  map[0x8B] = "無変換";
-  map[0x90] = "LANG1";
-  map[0x91] = "LANG2";
   for (let usage = 0xE8; usage <= 0xEF; usage++) {
     map[usage] = `Reserved ${toHex2(usage)}`;
   }
@@ -521,8 +464,6 @@ async function sendCommand(cmdId, payload = null) {
   data[0] = cmdId;
   if (payload) data.set(payload, 1);
 
-  console.log(data);
-
   // sendReport の Promise を完全に待つ必要がある（複数チャンク送信時の競合防止）
   try {
     await device.sendReport(HID_CONFIG.REPORT_ID, data);
@@ -621,23 +562,15 @@ async function writeMacros() {
       macrodata[offset++] = 0; // ターミネータ \0
     }
     
-    // デバッグ情報
-    console.log(`Total macro data size: ${offset} bytes (buffer: ${HID_CONFIG.MACRO_SIZE})`);
-    console.log(`Macro data (hex):`, Array.from(macrodata.slice(0, offset))
-      .map(b => b.toString(16).padStart(2, '0')).join(' '));
-    
     const payload = new Uint8Array(HID_CONFIG.RAW_DATA_SIZE - 1);
     const datasize = payload.length - 2; // 2 bytes for offset and length
     for(let start = 0; start < HID_CONFIG.MACRO_SIZE; start += datasize) {
       let left = HID_CONFIG.MACRO_SIZE - start;
       const chunkSize = Math.min(datasize, left);
-      console.log(`Writing macros chunk: start=${start}, left=${left}, chunkSize=${chunkSize}`);
       payload.fill(0);
-      payload.set(macrodata.slice(start, start + chunkSize), 2);  
-      // Set the offset and length for this chunk
-      payload[0] = start; // offset 
-      payload[1] = chunkSize; // length
-      console.log(payload);
+      payload.set(macrodata.slice(start, start + chunkSize), 2);
+      payload[0] = start;
+      payload[1] = chunkSize;
       await sendCommand(HID_COMMANDS.WRITE_MACROS, payload);
     }
     hasUnsavedMacroEdits = false;
@@ -647,18 +580,9 @@ async function writeMacros() {
   }
 }
 
-// helper for WRITE_KEY with logging
 async function writeKey(layer, switchId, usage) {
-  console.log(`writeKey called layer=${layer} switch=${switchId} usage=0x${usage.toString(16)}`);
   const payload = new Uint8Array([switchId, layer, usage]);
-  try {
-    const res = await sendCommand(HID_COMMANDS.WRITE_KEY, payload);
-    console.log("writeKey result", res);
-    return res;
-  } catch (e) {
-    console.log("writeKey error", e);
-    throw e;
-  }
+  return sendCommand(HID_COMMANDS.WRITE_KEY, payload);
 }
 
 function handleInputReport({ reportId, data }) {
@@ -742,11 +666,6 @@ function getBaseLabelFromUsageForFace(usage, fallbackLabel = "") {
   const usageLo = usage & 0xFF;
   const hi = (usage >> 8) & 0xFF;
   const hasShift = (hi & 0x22) !== 0;
-
-  const keypadDef = keypadKeyDefs.find((d) => d.usage === usageLo);
-  if (keypadDef) {
-    return keypadDef.label;
-  }
 
   const charDef = charKeyDefs.find((d) => d.usage === usageLo);
   if (charDef) {
@@ -1120,8 +1039,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const payload = new Uint8Array([start, count, layer  ]);
           const { body } = await sendCommand(HID_COMMANDS.READ_KEYMAP, payload);
           const returnedCount = body[0];
-          console.log(`Layer ${layer} Start ${start}: returned ${returnedCount} keys`);
-          console.log("Raw body:", Array.from(body.slice(0, Math.min(30, body.length))).map(b => `0x${b.toString(16).padStart(2, '0')}`).join(' '));
           if (returnedCount !== count) {
             throw new Error(`Expected ${count} keys but got ${returnedCount}`);
           }
@@ -1130,7 +1047,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const lo = body[offset];
             const hi = body[offset + 1];
             const usage = lo | (hi << 8);
-            console.log(`  Key ${start + i}: lo=0x${lo.toString(16)}, hi=0x${hi.toString(16)}, usage=0x${usage.toString(16)}`);
             tempKeymaps[layer][start + i] = { usage, label: "" };
           }
         }
@@ -1140,18 +1056,11 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let layer = 0; layer < 2; layer++) {
         for (let i = 0; i < HID_CONFIG.KEYMAP_SIZE; i++) {
           const usage = tempKeymaps[layer][i].usage;
-          const keypadDef = keypadKeyDefs.find(d => d.usage === (usage & 0xff));
-          let label;
-
-          if (keypadDef) {
-            label = keypadDef.label;
-          } else {
-            const usageLo = usage & 0xff;
-            label = MASTER_USAGE_MAP[usageLo] || `0x${usageLo.toString(16).toUpperCase()}`;
-          }
-
-          label = buildLabelWithModifiers(label, getModifierNamesFromUsage(usage));
-
+          const usageLo = usage & 0xff;
+          const label = buildLabelWithModifiers(
+            MASTER_USAGE_MAP[usageLo] || `0x${usageLo.toString(16).toUpperCase()}`,
+            getModifierNamesFromUsage(usage)
+          );
           keymaps[layer][i] = { usage, label };
         }
       }
@@ -1213,7 +1122,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const { body } = await sendCommand(HID_COMMANDS.WRITE_KEYMAP, payload);
           const writtenCount = body[0];
-          console.log(`Layer ${layer} Write: start=${firstSwitchId}, count=${count}, written=${writtenCount}`);
           if (writtenCount !== count) {
             throw new Error(`Expected ${count} keys written but got ${writtenCount}`);
           }
