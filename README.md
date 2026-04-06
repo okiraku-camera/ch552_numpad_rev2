@@ -10,10 +10,10 @@ English version is here: [README_en.md](README_en.md)
 **KiCad 6.0**用のファイル一式、製造に用いたガーバーファイル、アクリルカットのための DXF および PDFファイルが、hardware ディレクトリ内に入っています。
 
 ## ソフトウェア
-上記のハードウェア用に記述した、シンプルなUSB HIDキーボードやマクロキーボードといったソフトウェアです。コアパッケージとして **ch55xDuino** (v0.25) を用いた Arduino 用のスケッチです。
+上記のハードウェア用に記述した、マクロキーボードにもなるテンキーです。コアパッケージとして **ch55xDuino** (v0.25) を用いた Arduino 用のスケッチです。また、Arduinoのlibrariesディレクトリに `ch552_keyPad_Library` を配置しておく必要があります。
 
-### シンプルなテンキー
-**simple_numPad** ディレクトリに格納しています。以前に公開した [ch552_numkeyPad](https://github.com/okiraku-camera/ch552_numkeyPad) の sketch とおおむね同じ内容です。    
+- `macro_numpad/` : マクロテンキーのファームウェアスケッチ
+- `html/` : WebHID 設定用 Web UI
 
 ### webhid を使ったマクロキーボードの実装 (macro_numpad)
 テンキーの17キーのうち、NumLock を除いた16キーに、**WebHID** を使って好きな UsageID を割り当てられるようにしています。

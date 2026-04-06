@@ -8,10 +8,10 @@ This repository contains hardware design information for building a simple USB n
 The hardware directory includes a complete set of files for **KiCad 6.0**, Gerber files used for manufacturing, and DXF/PDF files for acrylic cutting.
 
 ## Software
-This section contains software written for the hardware above, including a simple USB HID keypad and macro keypad firmware. It is provided as Arduino sketches using **ch55xDuino** (v0.25) as the core package.
+This section contains software for a numeric keypad that can also work as a macro keypad. It is provided as an Arduino sketch using **ch55xDuino** (v0.25) as the core package. You also need to place `ch552_keyPad_Library` under your Arduino `libraries` directory.
 
-### Simple Numeric Keypad
-Stored in the **simple_numPad** directory. The sketch is largely the same as the previously published [ch552_numkeyPad](https://github.com/okiraku-camera/ch552_numkeyPad).    
+- `macro_numpad/`: macro keypad firmware sketch
+- `html/`: WebHID configuration Web UI
 
 ### Macro Keypad Implementation Using WebHID (macro_numpad)
 Among the keypad's 17 keys, this allows you to assign any Usage ID via **WebHID** to 16 keys excluding NumLock.
