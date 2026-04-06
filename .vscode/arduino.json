@@ -1,0 +1,17 @@
+{
+    "configuration": "clock=16internal,usb_settings=user148,upload_method=usb,bootloader_pin=p36",
+    "board": "CH55xDuino:mcs51:ch552",
+    "output": "./build",
+    "sketch": "macro_numpad\\macro_numpad.ino",
+    "buildPreferences": [
+        [
+            "compiler.cpp.extra_flags",
+            "-DCH552_MACRO_NUMPAD"
+        ],
+        [
+            "compiler.c.extra_flags",
+            "-DCH552_MACRO_NUMPAD"
+        ]
+    ],
+    "port": "COM1"
+}
