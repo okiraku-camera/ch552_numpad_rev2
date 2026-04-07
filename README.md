@@ -13,7 +13,7 @@ English version is here: [README_en.md](README_en.md)
 上記のハードウェア用に記述した、マクロキーボードにもなるテンキーです。コアパッケージとして **ch55xDuino** (v0.25) を用いた Arduino 用のスケッチです。また、Arduinoのlibrariesディレクトリに `ch552_keyPad_Library` を配置しておく必要があります。
 
 - `macro_numpad/` : マクロテンキーのファームウェアスケッチ
-- `html/` : WebHID 設定用 Web UI
+- `html/` : WebHID 設定用 Web UI (macro_numpad.html)
 
 ### webhid を使ったマクロキーボードの実装 (macro_numpad)
 テンキーの17キーのうち、NumLock を除いた16キーに、**WebHID** を使って好きな UsageID を割り当てられるようにしています。
